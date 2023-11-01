@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Blog</title>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <span class="logo-text">Yka Blogs</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/new-post">Add New Post</a></li>
+                <li><a href="/about">About Me</a></li>
+                <li><a href="/contacts">Contacts</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <% blogPosts.forEach(post => { %>
+            <div class="post">
+                <h2><%= post.title %></h2>
+                <div class="post-content">
+                    <p><%= post.content %></p>
+                </div>
+                <% if (post.content.length > 100) { %>
+                    <button class="read-more-button">Read more</button>
+                <% } %>
+            </div>
+        <% }); %>
+    </main>
+    <footer>
+        <p>&copy; 2023 Yka Blogs. All rights reserved.</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const postContents = document.querySelectorAll('.post-content');
+            const readMoreButtons = document.querySelectorAll('.read-more-button');
+
+            readMoreButtons.forEach((button, index) => {
+                const content = postContents[index];
+                if (content.textContent.length > 100) {
+                    button.style.display = 'inline-block';
+
+                    button.addEventListener('click', () => {
+                        content.style.maxHeight = 'none';
+                        button.style.display = 'none';
+                    });
+                } else {
+                    button.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
